@@ -1,0 +1,33 @@
+
+services:
+  mysql_source_db:
+    image: mysql:8.0
+    container_name: etl_mysql_source
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_source
+      MYSQL_DATABASE: sales_source_db
+      MYSQL_USER: etl_source_user
+      MYSQL_PASSWORD: etl_source_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_source_data:/var/lib/mysql
+
+  postgres_target_db:
+    image: postgres:15
+    container_name: etl_postgres_target
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: analytics_target_db
+      POSTGRES_USER: etl_target_user
+      POSTGRES_PASSWORD: etl_target_password
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_target_data:/var/lib/postgresql/data
+
+volumes:
+  mysql_source_data:
+  postgres_target_data:
