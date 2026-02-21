@@ -6,15 +6,15 @@ from src.utils.db import get_connection
 logger = logging.getLogger(__name__)
 
 INSERT_SQL = """
-INSERT INTO dw.fact_sales_target (
-    sale_id,
-    product_id,
-    quantity,
-    price,
-    sale_date,
-    total_amount
-)
-VALUES %s;
+    INSERT INTO dw.fact_sales_target (
+        sale_id,
+        product_id,
+        quantity,
+        price,
+        sale_date,
+        total_amount
+    )
+    VALUES %s;
 """
 
 def load_sales(df: pd.DataFrame):
@@ -23,6 +23,13 @@ def load_sales(df: pd.DataFrame):
         return
 
     logger.info("Insertando %s registros en fact_sales_target", len(df))
+
+
+    cols_target = ['sale_id', 'product_id', 'quantity', 'price', 'sale_date', 'total_amount']
+
+    # 3. Reemplaza NaN por None solo en esas columnas y convierte a tuplas
+    print(df.head())
+    df = df[cols_target]
 
     # Reemplaza NaN por None (Postgres NULL)
     df = df.where(pd.notnull(df), None)
