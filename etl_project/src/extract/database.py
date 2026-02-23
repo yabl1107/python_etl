@@ -4,13 +4,12 @@ from src.utils.db import get_mysql_connection
 from .base import BaseExtractor
 
 class MySQLExtractor(BaseExtractor):
-    def __init__(self, table_name, incremental_column, last_checkpoint, columns=None):
+    def __init__(self, table_name, incremental_column, columns=None):
         self.table_name = table_name
         self.incremental_column = incremental_column
-        self.last_checkpoint = last_checkpoint
         self.columns = columns
 
-    def extract(self):
+    def extract(self, last_checkpoint="2030-01-01 00:00:00"):
         # Get columns to select, otherwise *
         select_clause = ", ".join(self.columns) if self.columns else "*"
         
@@ -24,5 +23,5 @@ class MySQLExtractor(BaseExtractor):
         """
         
         with get_mysql_connection("source_db") as conn:
-            df = pd.read_sql(query, conn, params=[self.last_checkpoint])
+            df = pd.read_sql(query, conn, params=[last_checkpoint])
             return df

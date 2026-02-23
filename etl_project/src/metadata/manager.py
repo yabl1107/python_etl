@@ -24,7 +24,6 @@ class ETLMetadataManager:
                 if not df.empty:
                     return df.iloc[0, 0]
                 
-                # Si la tabla no está registrada, devolvemos una fecha base
                 logger.warning(f"No se encontró checkpoint para {table_name}. Usando fecha base.")
                 return "1900-01-01 00:00:00"
         
@@ -36,7 +35,7 @@ class ETLMetadataManager:
         """
         Actualiza o inserta el nuevo checkpoint en la tabla de control.
         """
-        # SQL de tipo UPSERT para Postgres (INSERT ... ON CONFLICT)
+        # SQL de tipo UPSERT para Postgres
         query = f"""
             INSERT INTO {self.full_table_name} (table_name, last_updated_at, last_run_at)
             VALUES (%s, %s, CURRENT_TIMESTAMP)
@@ -45,7 +44,6 @@ class ETLMetadataManager:
                 last_updated_at = EXCLUDED.last_updated_at,
                 last_run_at = CURRENT_TIMESTAMP;
         """
-        
         try:
             with get_connection("warehouse_db") as conn:
                 with conn.cursor() as cur:
