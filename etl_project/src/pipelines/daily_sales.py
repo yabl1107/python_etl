@@ -1,25 +1,30 @@
 import logging
 from datetime import date
 
-from src.extract.database import MySQLExtractor
+from src.extract.base import BaseExtractor
+from src.load.database import DatabaseLoader
+from etl_project.src.extract.mysql_db import MySQLExtractor
 from src.transform.clean import clean_sales
 from src.transform.validate import validate_sales
 from src.transform.enrich import enrich_sales
-from src.load.database import load_sales
+from src.load.baseLoader import BaseLoader
 from src.metadata.manager import ETLMetadataManager
 
 logger = logging.getLogger(__name__)
 
-def daily_sales_pipeline(extractor: MySQLExtractor, metadata: ETLMetadataManager):
-    TABLE_NAME = "sales"
-    INCREMENTAL_COL = "updated_at"
-
+def daily_sales_pipeline(
+        extractor: BaseExtractor,
+        loader : BaseLoader,
+        metadata: ETLMetadataManager,
+        TABLE_NAME : str,
+        INCREMENTAL_COL = str
+    ):
     try:
-        # get checkpoint
+        #Get checkpoint
         last_checkpoint = metadata.get_last_checkpoint(TABLE_NAME)
         logger.info(f"Iniciando extracción de {TABLE_NAME} desde: {last_checkpoint}")
 
-        # Extract
+        #Extract
         df = extractor.extract(last_checkpoint)
 
         if df.empty:
@@ -32,14 +37,13 @@ def daily_sales_pipeline(extractor: MySQLExtractor, metadata: ETLMetadataManager
         df = enrich_sales(df)
 
         # Load
-        load_sales(df) # Tu Upsert en Postgres
+        loader.load(df)
 
         # Update checkpoint
         new_checkpoint = df[INCREMENTAL_COL].max()
         metadata.update_checkpoint(TABLE_NAME, new_checkpoint)
 
         logger.info(f"ETL finalizado: {len(df)} filas procesadas.")
-
         return df
 
     except Exception as e:
@@ -48,18 +52,28 @@ def daily_sales_pipeline(extractor: MySQLExtractor, metadata: ETLMetadataManager
 
 
 def run_daily_sales_pipeline():
+
+    table_name = "sales"
+    incremental_col = "updated_at"
+
     # Instaciar dependencias
     metadata_mgr = ETLMetadataManager(schema="etl_metadata", table="etl_control")
 
     sales_extractor = MySQLExtractor(
-        table_name="sales",
-        incremental_column="updated_at"
+        table_name= table_name,
+        incremental_column= incremental_col
     )
+
+    sales_loader = DatabaseLoader()
+
     # Ejecutar pipeline
     try:
         daily_sales_pipeline(
             extractor=sales_extractor,
-            metadata=metadata_mgr
+            loader= sales_loader,
+            metadata=metadata_mgr,
+            TABLE_NAME=table_name,
+            INCREMENTAL_COL=incremental_col
         )
     except Exception:
-        exit(1) # Salida con error
+        exit(1) #Salida con error

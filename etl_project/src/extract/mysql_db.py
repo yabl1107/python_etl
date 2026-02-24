@@ -9,7 +9,7 @@ class MySQLExtractor(BaseExtractor):
         self.incremental_column = incremental_column
         self.columns = columns
 
-    def extract(self, last_checkpoint="2030-01-01 00:00:00"):
+    def extract(self, checkpoint=None):
         # Get columns to select, otherwise *
         select_clause = ", ".join(self.columns) if self.columns else "*"
         
@@ -22,6 +22,8 @@ class MySQLExtractor(BaseExtractor):
             WHERE {self.incremental_column} > %s
         """
         
+        checkpoint_to_use = checkpoint or "2026-01-01 00:00:00"
+
         with get_mysql_connection("source_db") as conn:
-            df = pd.read_sql(query, conn, params=[last_checkpoint])
+            df = pd.read_sql(query, conn, params=[checkpoint_to_use])
             return df
