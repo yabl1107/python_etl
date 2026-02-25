@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 from unittest.mock import Mock, patch
 
-from src.pipelines.daily_sales import daily_sales_pipeline
+from etl_project.src.pipelines.incremental import daily_sales_pipeline
 
 def test_pipeline_success():
     # --- Fake DataFrame ---

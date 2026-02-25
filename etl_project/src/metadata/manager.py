@@ -1,6 +1,6 @@
 import pandas as pd
 import logging
-from src.utils.db import get_connection # Asegúrate de tener esta utilidad
+from src.utils.db import get_postgres_connection # Asegúrate de tener esta utilidad
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +18,7 @@ class ETLMetadataManager:
         query = f"SELECT last_updated_at FROM {self.full_table_name} WHERE table_name = %s"
         
         try:
-            with get_connection("warehouse_db") as conn:
+            with get_postgres_connection("warehouse_db") as conn:
                 df = pd.read_sql(query, conn, params=[table_name])
                 
                 if not df.empty:
@@ -45,7 +45,7 @@ class ETLMetadataManager:
                 last_run_at = CURRENT_TIMESTAMP;
         """
         try:
-            with get_connection("warehouse_db") as conn:
+            with get_postgres_connection("warehouse_db") as conn:
                 with conn.cursor() as cur:
                     cur.execute(query, (table_name, new_checkpoint))
                     conn.commit() # ¡Importante en escrituras!
