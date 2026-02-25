@@ -2,6 +2,15 @@ from .baseTransformer import BaseTransformer
 
 class VentasTransformer(BaseTransformer):
     def transform(self, df):
+        
+        #Validate
+        if df.empty:
+            raise ValueError("No hay ventas para procesar")
+        
+        if (df["quantity"] <= 0).any():
+            raise ValueError("Cantidad invalida")
+        
+        
         # Clean
         df = df.copy()
         df = df.dropna()
@@ -11,11 +20,5 @@ class VentasTransformer(BaseTransformer):
         df = df.copy()
         df["total_amount"] = df["quantity"] * df["price"]
 
-        #Validate
-        if df.empty:
-            raise ValueError("No hay ventas para procesar")
 
-        if (df["quantity"] <= 0).any():
-            raise ValueError("Cantidad inválida")
-        
         return df
