@@ -4,7 +4,8 @@ from src.utils.db import get_mysql_connection
 from .base import BaseExtractor
 
 class MysqlExtractor(BaseExtractor):
-    def __init__(self, table_name, incremental_column,latest_checkpoint, columns=None):
+    def __init__(self, schema_name, table_name, incremental_column,latest_checkpoint, columns=None):
+        self.schema = schema_name
         self.table_name = table_name
         self.incremental_column = incremental_column
         self.checkpoint = latest_checkpoint
@@ -19,7 +20,7 @@ class MysqlExtractor(BaseExtractor):
 
         query = f"""
             SELECT {select_clause} 
-            FROM {self.table_name} 
+            FROM {self.schema}.{self.table_name} 
             WHERE {self.incremental_column} > %s
         """
         

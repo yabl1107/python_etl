@@ -6,29 +6,26 @@ from src.load.baseLoader import BaseLoader
 
 logger = logging.getLogger(__name__)
 
-INSERT_SQL = """
-    INSERT INTO dw.fact_sales_target (
-        sale_id,
-        product_id,
-        quantity,
-        price,
-        sale_date,
-        total_amount
-    )
-    VALUES %s;
-"""
 
 class PostgresLoader(BaseLoader):
-    def __init__(self, table_name, columns):
+    def __init__(self, schema_name, table_name, columns):
+        self.schema = schema_name
         self.table_name = table_name
         self.columns = columns
+        self.full_table_path = f"{self.schema}.{self.table_name}"
+        self.insert_sql = self._generate_insert_sql()
+
+    def _generate_insert_sql(self):
+        cols_str = ", ".join(self.columns)
+        return f"INSERT INTO {self.full_table_path} ({cols_str}) VALUES %s;"
+    
 
     def load(self, df: pd.DataFrame):
         if df.empty:
             logger.info("No hay datos para insertar")
             return
 
-        logger.info("Insertando %s registros en fact_sales_target", len(df))
+        logger.info("Insertando %s registros en %s", len(df), self.full_table_path)
 
         # Filtramos el DF
         df_to_insert = df[self.columns]
@@ -42,7 +39,7 @@ class PostgresLoader(BaseLoader):
 
         with get_postgres_connection("warehouse_db") as conn:
             with conn.cursor() as cur:
-                execute_values(cur, INSERT_SQL, values)
+                execute_values(cur, self.insert_sql, values)
             conn.commit()
 
         logger.info("Inserción completada correctamente")

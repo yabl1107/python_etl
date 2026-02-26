@@ -8,12 +8,15 @@ from src.metadata.manager import ETLMetadataManager
 from src.load.postgresLoader import PostgresLoader
 from src.pipelines.incremental import IncrementalETLPipeline
 
+from config.tables import SALES_PIPELINE_CONFIG
+
 logger = logging.getLogger(__name__)
 
 
 def run_daily_sales_pipeline():
-    table_name = "sales"
-    incremental_col = "updated_at"
+
+    table_name = SALES_PIPELINE_CONFIG["source"]["table"]
+    incremental_col = SALES_PIPELINE_CONFIG["source"]["incremental_col"]
 
     # Instaciar dependencias
     
@@ -24,14 +27,16 @@ def run_daily_sales_pipeline():
     logger.info(f"Último checkpoint para {table_name}: {latest_checkpoint}")
 
     sales_extractor = MysqlExtractor(
+        schema_name= SALES_PIPELINE_CONFIG["source"]["schema"],
         table_name= table_name,
         incremental_column= incremental_col,
         latest_checkpoint= latest_checkpoint
     )
 
     sales_loader = PostgresLoader(
-        table_name= "fact_sales_target",
-        columns=["sale_id", "product_id", "quantity", "price", "sale_date", "total_amount"]
+        table_name= SALES_PIPELINE_CONFIG["target"]["table"],
+        columns=SALES_PIPELINE_CONFIG["target"]["columns"],
+        schema_name= SALES_PIPELINE_CONFIG["target"]["schema"]
     )
 
     # Ejecutar pipeline
