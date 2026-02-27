@@ -13,6 +13,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
+      - ./sql-scripts/mysql:/docker-entrypoint-initdb.d
       - mysql_source_data:/var/lib/mysql
 
   postgres_target_db:
@@ -27,6 +28,8 @@ services:
       - "5434:5432"
     volumes:
       - postgres_target_data:/var/lib/postgresql/data
+      - ./sql-scripts/postgres:/docker-entrypoint-initdb.d
+
 
 volumes:
   mysql_source_data:
