@@ -1,0 +1,3 @@
+2026-02-26 23:14:01,484 - src.jobs.sales_job - INFO - Último checkpoint para sales: 2026-02-27 04:09:05
+2026-02-26 23:14:01,489 - src.pipelines.incremental - INFO - No se encontraron registros nuevos o modificados.
+2026-02-26 23:14:01,489 - src.jobs.sales_job - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
