@@ -2,11 +2,11 @@
 
 import logging
 
-from src.extract.mysqlExtractor import MysqlExtractor
-from src.transform.ventasTransformer import VentasTransformer
-from src.metadata.manager import ETLMetadataManager
-from src.load.postgresLoader import PostgresLoader
-from src.pipelines.incremental import IncrementalETLPipeline
+from etl_project.src.extract.mysql_extractor import MysqlExtractor
+from etl_project.src.transform.ventas_transformer import VentasTransformer
+from etl_project.src.metadata.metadata_manager import MetadataManager
+from etl_project.src.load.postgres_loader import PostgresLoader
+from etl_project.src.pipelines.incremental_pipeline import IncrementalPipeline
 
 from config.tables import SALES_PIPELINE_CONFIG
 
@@ -20,7 +20,7 @@ def run_daily_sales_pipeline():
 
     # Instaciar dependencias
     
-    metadata_mgr = ETLMetadataManager(schema="etl_metadata", table="etl_control")
+    metadata_mgr = MetadataManager(schema="etl_metadata", table="etl_control")
 
     latest_checkpoint = metadata_mgr.get_last_checkpoint(table_name)
 
@@ -41,7 +41,7 @@ def run_daily_sales_pipeline():
 
     # Ejecutar pipeline
     try:
-        pipeline = IncrementalETLPipeline(
+        pipeline = IncrementalPipeline(
             extractor=sales_extractor,
             loader= sales_loader,
             transformer=VentasTransformer()

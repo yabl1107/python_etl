@@ -1,5 +1,5 @@
 import pandas as pd
-from .base import BaseExtractor
+from .base_extractor import BaseExtractor
 
 class CSVExtractor(BaseExtractor):
     def __init__(self, path):

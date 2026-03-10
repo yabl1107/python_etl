@@ -1,14 +1,14 @@
 import logging
 from datetime import date
 
-from src.extract.base import BaseExtractor
-from src.transform.baseTransformer import BaseTransformer
-from src.load.baseLoader import BaseLoader
+from etl_project.src.extract.base_extractor import BaseExtractor
+from etl_project.src.transform.base_transformer import BaseTransformer
+from etl_project.src.load.base_loader import BaseLoader
 
 
 logger = logging.getLogger(__name__)
 
-class IncrementalETLPipeline:
+class IncrementalPipeline:
     def __init__(self, extractor: BaseExtractor, loader: BaseLoader, transformer: BaseTransformer):
         self.extractor = extractor
         self.loader = loader

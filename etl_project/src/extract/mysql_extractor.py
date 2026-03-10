@@ -1,7 +1,7 @@
 
 import pandas as pd
 from src.utils.db import get_mysql_connection
-from .base import BaseExtractor
+from .base_extractor import BaseExtractor
 
 class MysqlExtractor(BaseExtractor):
     def __init__(self, schema_name, table_name, incremental_column,latest_checkpoint, columns=None):

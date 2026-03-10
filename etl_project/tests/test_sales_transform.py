@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from src.transform.ventasTransformer import VentasTransformer
+from etl_project.src.transform.ventas_transformer import VentasTransformer
 
 # SUCCESS (Happy Path)
 

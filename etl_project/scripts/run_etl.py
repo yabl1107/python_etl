@@ -1,5 +1,5 @@
 from config.logging import setup_logging
-from src.jobs.sales_job import run_daily_sales_pipeline
+from etl_project.src.pipelines.sales_pipeline import run_daily_sales_pipeline
 from dotenv import load_dotenv
 
 load_dotenv()
