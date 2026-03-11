@@ -24,10 +24,9 @@ PYTHON_ETL/
 │   │   └── run_etl.py        # Script principal para lanzar el pipeline
 │   ├── src/                  
 │   │   ├── extract/          # Extracción de datos
-│   │   ├── jobs/             # Definición de tareas específicas (ej. sales_job) Dependency injection
 │   │   ├── load/             # Carga de datos al destino
 │   │   ├── metadata/         # Gestión de checkpoints y estados del ETL
-│   │   ├── pipelines/        # Orquestación de flujos (Incrmental/Full)
+│   │   ├── pipelines/        # Orquestación de flujos
 │   │   ├── transform/        # Limpieza y transformación
 │   │   └── utils/            # Conectores de DB y helpers
 │   └── tests/                # Pruebas unitarias
