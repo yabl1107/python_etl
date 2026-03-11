@@ -1,3 +1,7 @@
+from pytz import timezone
+from datetime import datetime, timezone
+from config.tables import SALES_PIPELINE_CONFIG
+
 from .base_transformer import BaseTransformer
 
 class VentasTransformer(BaseTransformer):
@@ -10,15 +14,16 @@ class VentasTransformer(BaseTransformer):
         if (df["quantity"] <= 0).any():
             raise ValueError("Cantidad invalida")
         
-        
+        mapping = SALES_PIPELINE_CONFIG["column_mapping"]
+
         # Clean
-        df = df.copy()
+        df = df.rename(columns=mapping)
         df = df.dropna()
         df = df.drop_duplicates(subset=["sale_id"])
 
         #Enrich
-        df = df.copy()
-        df["total_amount"] = df["quantity"] * df["price"]
+        df['inserted_at'] = datetime.now(timezone.utc)
+        df["total_amount"] = df["quantity"] * df["unit_price"]
 
 
         return df

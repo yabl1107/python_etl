@@ -1,9 +1,9 @@
 import logging
 from datetime import date
 
-from etl_project.src.extract.base_extractor import BaseExtractor
-from etl_project.src.transform.base_transformer import BaseTransformer
-from etl_project.src.load.base_loader import BaseLoader
+from src.extract.base_extractor import BaseExtractor
+from src.transform.base_transformer import BaseTransformer
+from src.load.base_loader import BaseLoader
 
 
 logger = logging.getLogger(__name__)

@@ -2,11 +2,11 @@
 
 import logging
 
-from etl_project.src.extract.mysql_extractor import MysqlExtractor
-from etl_project.src.transform.ventas_transformer import VentasTransformer
-from etl_project.src.metadata.metadata_manager import MetadataManager
-from etl_project.src.load.postgres_loader import PostgresLoader
-from etl_project.src.pipelines.incremental_pipeline import IncrementalPipeline
+from src.extract.mysql_extractor import MysqlExtractor
+from src.transform.ventas_transformer import VentasTransformer
+from src.metadata.metadata_manager import MetadataManager
+from src.load.postgres_loader import PostgresLoader
+from src.pipelines.incremental_pipeline import IncrementalPipeline
 
 from config.tables import SALES_PIPELINE_CONFIG
 

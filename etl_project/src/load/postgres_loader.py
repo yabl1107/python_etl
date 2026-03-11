@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 from psycopg2.extras import execute_values
 from src.utils.db import get_postgres_connection
-from etl_project.src.load.base_loader import BaseLoader
+from src.load.base_loader import BaseLoader
 
 logger = logging.getLogger(__name__)
 

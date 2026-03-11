@@ -1,3 +1,123 @@
 2026-02-26 23:14:01,484 - src.jobs.sales_job - INFO - Último checkpoint para sales: 2026-02-27 04:09:05
 2026-02-26 23:14:01,489 - src.pipelines.incremental - INFO - No se encontraron registros nuevos o modificados.
 2026-02-26 23:14:01,489 - src.jobs.sales_job - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-10 20:24:30,561 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 1900-01-01 00:00:00
+2026-03-10 20:24:30,577 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: 'price'
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'price'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 25, in run
+    df = self.transformer.transform(df)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/transform/ventas_transformer.py", line 26, in transform
+    df["total_amount"] = df["quantity"] * df["price"]
+                                          ~~^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'price'
+2026-03-10 20:24:30,583 - src.pipelines.sales_pipeline - ERROR - Pipeline de ventas diarias falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'price'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/sales_pipeline.py", line 50, in run_daily_sales_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 25, in run
+    df = self.transformer.transform(df)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/transform/ventas_transformer.py", line 26, in transform
+    df["total_amount"] = df["quantity"] * df["price"]
+                                          ~~^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'price'
+2026-03-10 20:27:36,147 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 1900-01-01 00:00:00
+2026-03-10 20:27:36,156 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.fact_sales
+2026-03-10 20:27:36,169 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: column "created_at" of relation "fact_sales" does not exist
+LINE 1: ... total_amount, payment_method, status, sale_date, created_at...
+                                                             ^
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 42, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "created_at" of relation "fact_sales" does not exist
+LINE 1: ... total_amount, payment_method, status, sale_date, created_at...
+                                                             ^
+
+2026-03-10 20:27:36,171 - src.pipelines.sales_pipeline - ERROR - Pipeline de ventas diarias falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/sales_pipeline.py", line 50, in run_daily_sales_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 42, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "created_at" of relation "fact_sales" does not exist
+LINE 1: ... total_amount, payment_method, status, sale_date, created_at...
+                                                             ^
+
+2026-03-10 20:36:43,710 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 1900-01-01 00:00:00
+2026-03-10 20:36:43,719 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.fact_sales
+2026-03-10 20:36:43,731 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: insert or update on table "fact_sales" violates foreign key constraint "fact_sales_product_id_fkey"
+DETAIL:  Key (product_id)=(1) is not present in table "dim_products".
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 42, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.ForeignKeyViolation: insert or update on table "fact_sales" violates foreign key constraint "fact_sales_product_id_fkey"
+DETAIL:  Key (product_id)=(1) is not present in table "dim_products".
+
+2026-03-10 20:36:43,732 - src.pipelines.sales_pipeline - ERROR - Pipeline de ventas diarias falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/sales_pipeline.py", line 50, in run_daily_sales_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 42, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.ForeignKeyViolation: insert or update on table "fact_sales" violates foreign key constraint "fact_sales_product_id_fkey"
+DETAIL:  Key (product_id)=(1) is not present in table "dim_products".
+
+2026-03-10 20:44:57,098 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 1900-01-01 00:00:00
+2026-03-10 20:44:57,112 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.fact_sales
+2026-03-10 20:44:57,126 - src.load.postgres_loader - INFO - Inserción completada correctamente
+2026-03-10 20:44:57,136 - src.metadata.metadata_manager - INFO - Checkpoint actualizado para sales: 2026-03-11 01:43:54
+2026-03-10 20:44:57,136 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. Checkpoint actualizado a 2026-03-11 01:43:54

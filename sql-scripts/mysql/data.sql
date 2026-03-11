@@ -1,38 +1,39 @@
-INSERT INTO sales_source_db.sales 
+INSERT INTO sales_source_db.products (name, category, cost_price, supplier_id)
+VALUES
+('Laptop Pro 14', 'Electronics', 900.00, 101),
+('Wireless Mouse', 'Electronics', 10.50, 102),
+('Mechanical Keyboard', 'Electronics', 45.00, 102),
+('Office Chair', 'Furniture', 120.00, 201),
+('Standing Desk', 'Furniture', 250.00, 201),
+('Gaming Monitor', 'Electronics', 180.00, 103),
+('USB-C Hub', 'Accessories', 15.00, 104),
+('External SSD 1TB', 'Electronics', 75.00, 105);
+
+
+INSERT INTO sales_source_db.customers (full_name, email, country, loyalty_score)
+VALUES
+('John Smith', 'john.smith@email.com', 'USA', 120),
+('Maria Garcia', 'maria.garcia@email.com', 'Spain', 80),
+('Carlos Lopez', 'carlos.lopez@email.com', 'Mexico', 50),
+('Anna Müller', 'anna.mueller@email.com', 'Germany', 200),
+('Lucas Silva', 'lucas.silva@email.com', 'Brazil', 30),
+('Yuki Tanaka', 'yuki.tanaka@email.com', 'Japan', 150);
+
+INSERT INTO sales_source_db.stores (store_name, city, region)
+VALUES
+('Tech Store Lima', 'Lima', 'South America'),
+('Tech Store Madrid', 'Madrid', 'Europe'),
+('Tech Store Berlin', 'Berlin', 'Europe'),
+('Tech Store Tokyo', 'Tokyo', 'Asia');
+
+INSERT INTO sales_source_db.sales
 (product_id, transaction_id, customer_id, store_id, quantity, price, payment_method, status, sale_date)
-VALUES 
-(101, 'TXN-2026-001', 1, 1, 2, 1500.00, 'credit_card', 'completed', '2026-02-20 10:15:00'),
-(102, 'TXN-2026-002', 2, 1, 1, 25.50,   'cash',        'completed', '2026-02-20 11:30:00'),
-(103, 'TXN-2026-003', 3, 2, 5, 120.00,  'transfer',    'completed', '2026-02-21 09:00:00'),
-(101, 'TXN-2026-004', 4, 1, 1, 750.00,  'crypto',      'completed', '2026-02-21 15:45:00'),
-(105, 'TXN-2026-005', 1, 3, 3, 45.00,   'credit_card', 'pending',   '2026-02-22 18:20:00'),
-(102, 'TXN-2026-006', 5, 2, 10, 250.00, 'cash',        'completed', '2026-02-23 08:10:00'),
-(104, 'TXN-2026-007', 2, 1, 1, 500.00,  'transfer',    'canceled',  '2026-02-24 12:00:00'),
-(106, 'TXN-2026-008', 6, 3, 2, 30.00,   'credit_card', 'completed', '2026-02-25 14:30:00'),
-(101, 'TXN-2026-009', 3, 1, 1, 750.00,  'crypto',      'completed', '2026-02-26 11:00:00'),
-(103, 'TXN-2026-010', 7, 2, 4, 96.00,   'cash',        'completed', '2026-02-26 16:45:00');
-
-
-INSERT INTO sales_source_db.sales 
-(transaction_id, customer_id, product_id, store_id, quantity, unit_price, discount_amount, sale_date)
-VALUES 
-('TXN-001', 101, 50, 1, 2, 25.00, 5.00, '2026-02-25 10:30:00'),
-('TXN-002', 102, 55, 2, 1, 100.00, 0.00, '2026-02-26 12:00:00'),
-('TXN-003', 103, 50, 1, 5, 25.00, 10.00, '2026-02-26 14:15:00');
-
--- Insertar Productos
-INSERT INTO sales_source_db.products (name, category, cost_price) VALUES 
-('Laptop Pro', 'Electrónica', 800.00),
-('Mouse Inalámbrico', 'Accesorios', 15.00),
-('Monitor 4K', 'Electrónica', 250.00);
-
--- Insertar Clientes
-INSERT INTO sales_source_db.customers (full_name, email, country) VALUES 
-('Abel DE', 'abel@example.com', 'Perú'),
-('Maria Lopez', 'maria.l@gmail.com', 'México'),
-('John Doe', 'jdoe@outlook.com', 'USA');
-
--- Insertar Tiendas
-INSERT INTO sales_source_db.stores (store_name, city, region) VALUES 
-('Tienda Centro', 'Lima', 'LATAM'),
-('Online Store', 'N/A', 'Global');
+VALUES
+(1, 'TXN-10001', 1, 1, 1, 1200.00, 'credit_card', 'completed', '2026-01-10 10:15:00'),
+(2, 'TXN-10002', 2, 1, 2, 25.00, 'cash', 'completed', '2026-01-11 11:30:00'),
+(3, 'TXN-10003', 3, 2, 1, 70.00, 'transfer', 'completed', '2026-01-12 09:20:00'),
+(4, 'TXN-10004', 4, 3, 1, 200.00, 'credit_card', 'completed', '2026-01-12 14:45:00'),
+(5, 'TXN-10005', 5, 2, 1, 350.00, 'crypto', 'completed', '2026-01-13 16:10:00'),
+(6, 'TXN-10006', 1, 4, 2, 400.00, 'credit_card', 'completed', '2026-01-14 13:00:00'),
+(7, 'TXN-10007', 6, 3, 3, 45.00, 'cash', 'completed', '2026-01-15 18:25:00'),
+(8, 'TXN-10008', 2, 1, 1, 80.00, 'transfer', 'completed', '2026-01-16 12:40:00');

@@ -4,7 +4,7 @@ from src.utils.db import get_postgres_connection # Asegúrate de tener esta util
 
 logger = logging.getLogger(__name__)
 
-class ETLMetadataManager:
+class MetadataManager:
     def __init__(self, schema="etl_metadata", table="etl_control"):
         self.schema = schema
         self.table = table

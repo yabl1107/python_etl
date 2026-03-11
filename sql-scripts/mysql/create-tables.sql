@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS sales_source_db.products (
     cost_price DECIMAL(10, 2),
     supplier_id INT,
     is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS sales_source_db.customers (
@@ -32,7 +33,8 @@ CREATE TABLE IF NOT EXISTS sales_source_db.customers (
     email VARCHAR(100) UNIQUE,
     country VARCHAR(50) DEFAULT 'Desconocido',
     loyalty_score INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS sales_source_db.stores (
