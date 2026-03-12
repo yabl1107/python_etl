@@ -8,10 +8,12 @@ logger = logging.getLogger(__name__)
 
 
 class PostgresLoader(BaseLoader):
-    def __init__(self, schema_name, table_name, columns):
+    def __init__(self, schema_name, table_name, columns,incremental_col):
         self.schema = schema_name
         self.table_name = table_name
         self.columns = columns
+        self.incremental_col = incremental_col #Para idempotencia
+
         self.full_table_path = f"{self.schema}.{self.table_name}"
         self.insert_sql = self._generate_insert_sql()
 
@@ -27,20 +29,29 @@ class PostgresLoader(BaseLoader):
 
         logger.info("Insertando %s registros en %s", len(df), self.full_table_path)
 
-        # Filtramos el DF
-        df_to_insert = df[self.columns]
-
         # Reemplaza NaN por None
-        df = df_to_insert.astype(object).where(df_to_insert.notnull(), None)
+        df = df.astype(object).where(df.notnull(), None)
 
+        # delete_sql = f"DELETE FROM {self.full_table_path} WHERE {self.incremental_col} > %s"
+        delete_sql = f"DELETE FROM {self.full_table_path} WHERE {self.incremental_col} BETWEEN %s AND %s"
+        min_val = df[self.incremental_col].min()
+        max_val = df[self.incremental_col].max()
+        
+        # Validar orden de columnas
+        if list(df.columns) != self.columns:
+            logger.warning("El orden de las columnas del DF no coincide")
+            df = df[self.columns]
+        
         values = [
             tuple(map(_to_python_type, row)) for row in df.itertuples(index=False, name=None)
         ]
 
+
         with get_postgres_connection("warehouse_db") as conn:
             with conn.cursor() as cur:
+                cur.execute(delete_sql, (min_val, max_val)) #Asegurar idempotencia, borar registros en el lote actual que ya fueron cargados.
                 execute_values(cur, self.insert_sql, values)
-            conn.commit()
+                conn.commit()
 
         logger.info("Inserción completada correctamente")
 

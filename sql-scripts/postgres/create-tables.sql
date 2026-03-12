@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS dw.dim_customers (
     full_name VARCHAR(150),
     email VARCHAR(100),
     country VARCHAR(50),
-    loyalty_segment VARCHAR(20), 
+    loyalty_segment VARCHAR(20),
     created_at TIMESTAMP,
     inserted_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

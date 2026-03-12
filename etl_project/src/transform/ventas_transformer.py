@@ -25,5 +25,7 @@ class VentasTransformer(BaseTransformer):
         df['inserted_at'] = datetime.now(timezone.utc)
         df["total_amount"] = df["quantity"] * df["unit_price"]
 
+        # Filtramos y orden de columnas
+        df_to_insert = df[SALES_PIPELINE_CONFIG["target"]["columns"]]
 
-        return df
+        return df_to_insert

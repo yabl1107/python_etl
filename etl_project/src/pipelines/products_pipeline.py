@@ -1,22 +1,20 @@
-
-
 import logging
 
 from src.extract.mysql_extractor import MysqlExtractor
-from src.transform.ventas_transformer import VentasTransformer
+from src.transform.products_transformer import ProductsTransformer
 from src.metadata.metadata_manager import MetadataManager
 from src.load.postgres_loader import PostgresLoader
 from src.pipelines.incremental_pipeline import IncrementalPipeline
 
-from config.tables import SALES_PIPELINE_CONFIG
+from config.tables import PRODUCTS_PIPELINE_CONFIG
 
 logger = logging.getLogger(__name__)
 
 
-def run_daily_sales_pipeline():
+def products_pipeline():
 
-    table_name = SALES_PIPELINE_CONFIG["source"]["table"]
-    incremental_col = SALES_PIPELINE_CONFIG["source"]["incremental_col"]
+    table_name = PRODUCTS_PIPELINE_CONFIG["source"]["table"]
+    incremental_col = PRODUCTS_PIPELINE_CONFIG["source"]["incremental_col"]
 
     # Instaciar dependencias
     
@@ -26,26 +24,26 @@ def run_daily_sales_pipeline():
 
     logger.info(f"Último checkpoint para {table_name}: {latest_checkpoint}")
 
-    sales_extractor = MysqlExtractor(
-        schema_name= SALES_PIPELINE_CONFIG["source"]["schema"],
+    products_extractor = MysqlExtractor(
+        schema_name= PRODUCTS_PIPELINE_CONFIG["source"]["schema"],
         table_name= table_name,
         incremental_column= incremental_col,
         latest_checkpoint= latest_checkpoint
     )
 
-    sales_loader = PostgresLoader(
-        table_name= SALES_PIPELINE_CONFIG["target"]["table"],
-        columns=SALES_PIPELINE_CONFIG["target"]["columns"],
-        schema_name= SALES_PIPELINE_CONFIG["target"]["schema"],
+    products_loader = PostgresLoader(
+        table_name= PRODUCTS_PIPELINE_CONFIG["target"]["table"],
+        columns=PRODUCTS_PIPELINE_CONFIG["target"]["columns"],
+        schema_name= PRODUCTS_PIPELINE_CONFIG["target"]["schema"],
         incremental_col= incremental_col
     )
 
     # Ejecutar pipeline
     try:
         pipeline = IncrementalPipeline(
-            extractor=sales_extractor,
-            loader= sales_loader,
-            transformer=VentasTransformer()
+            extractor=products_extractor,
+            loader= products_loader,
+            transformer=ProductsTransformer()
         )
 
         processed_df = pipeline.run()
@@ -54,10 +52,10 @@ def run_daily_sales_pipeline():
             # Actualizar checkpoint
             new_checkpoint = processed_df[incremental_col].max()
             metadata_mgr.update_checkpoint(table_name, new_checkpoint)
-            logger.info(f"Pipeline de ventas diarias ejecutado exitosamente. Checkpoint actualizado a {new_checkpoint}")
+            logger.info(f"Pipeline de productos ejecutado exitosamente. Checkpoint actualizado a {new_checkpoint}")
         else:
-            logger.info("Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.")
+            logger.info("Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.")
 
     except Exception:
-        logger.error("Pipeline de ventas diarias falló", exc_info=True)
+        logger.error("Pipeline de productos falló", exc_info=True)
         exit(1) #Salida con error

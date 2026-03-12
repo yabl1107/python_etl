@@ -65,9 +65,9 @@ PRODUCTS_PIPELINE_CONFIG = {
             "product_name",
             "category_name",
             "unit_cost",
-            "supplier_id",
             "margin_value", #Calculado en transform
             "is_active",
+            "created_at", # Fecha de ingreso sistema
             "inserted_at" #Metadato de carga
         ]
     },

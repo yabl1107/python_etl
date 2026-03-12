@@ -121,3 +121,295 @@ DETAIL:  Key (product_id)=(1) is not present in table "dim_products".
 2026-03-10 20:44:57,126 - src.load.postgres_loader - INFO - Inserción completada correctamente
 2026-03-10 20:44:57,136 - src.metadata.metadata_manager - INFO - Checkpoint actualizado para sales: 2026-03-11 01:43:54
 2026-03-10 20:44:57,136 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. Checkpoint actualizado a 2026-03-11 01:43:54
+2026-03-11 20:08:43,514 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:08:43,526 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:08:43,526 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:08:43,534 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:08:43,549 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:08:43,562 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: column "supplier_id" of relation "dim_products" does not exist
+LINE 1: ...oduct_id, product_name, category_name, unit_cost, supplier_i...
+                                                             ^
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 45, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "supplier_id" of relation "dim_products" does not exist
+LINE 1: ...oduct_id, product_name, category_name, unit_cost, supplier_i...
+                                                             ^
+
+2026-03-11 20:08:43,564 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 48, in products_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 45, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "supplier_id" of relation "dim_products" does not exist
+LINE 1: ...oduct_id, product_name, category_name, unit_cost, supplier_i...
+                                                             ^
+
+2026-03-11 20:11:05,264 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:11:05,269 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:11:05,269 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:11:05,277 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:11:05,283 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:11:05,292 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: column "is_active" is of type boolean but expression is of type integer
+LINE 1: ...ALUES (1,'Laptop Pro 14','Electronics',900.0,90.0,1,'2026-03...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 45, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.DatatypeMismatch: column "is_active" is of type boolean but expression is of type integer
+LINE 1: ...ALUES (1,'Laptop Pro 14','Electronics',900.0,90.0,1,'2026-03...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+
+2026-03-11 20:11:05,293 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 48, in products_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 45, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.DatatypeMismatch: column "is_active" is of type boolean but expression is of type integer
+LINE 1: ...ALUES (1,'Laptop Pro 14','Electronics',900.0,90.0,1,'2026-03...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+
+2026-03-11 20:17:02,566 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:17:02,570 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:17:02,571 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:17:02,579 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:17:02,585 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:17:02,596 - src.load.postgres_loader - INFO - Inserción completada correctamente
+2026-03-11 20:17:02,596 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'created_at'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 52, in products_pipeline
+    new_checkpoint = processed_df[incremental_col].max()
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'created_at'
+2026-03-11 20:19:52,064 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:19:52,069 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:19:52,069 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:19:52,078 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:19:52,084 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:19:52,094 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 45, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 20:19:52,095 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 48, in products_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 45, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 20:50:53,512 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:50:53,516 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:50:53,516 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:50:53,525 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:51:16,520 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:51:16,525 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:51:16,525 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:51:16,533 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:51:16,540 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:51:16,541 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: 'PostgresLoader' object has no attribute 'incremental_col'
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 34, in load
+    delete_sql = f"DELETE FROM {self.full_table_path} WHERE {self.incremental_col} > %s"
+                                                             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PostgresLoader' object has no attribute 'incremental_col'
+2026-03-11 20:51:16,542 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 49, in products_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 34, in load
+    delete_sql = f"DELETE FROM {self.full_table_path} WHERE {self.incremental_col} > %s"
+                                                             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PostgresLoader' object has no attribute 'incremental_col'
+2026-03-11 20:52:37,001 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:52:37,005 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:52:37,005 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:52:37,014 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:52:37,021 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:52:37,033 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 51, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 20:52:37,034 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 50, in products_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 51, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 20:58:05,456 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:58:05,460 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:58:05,460 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:58:05,468 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:58:05,474 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:58:05,484 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 55, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 20:58:05,485 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 50, in products_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 55, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 20:59:41,088 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 20:59:41,093 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 20:59:41,094 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 20:59:41,102 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 20:59:41,110 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 20:59:41,121 - src.pipelines.incremental_pipeline - ERROR - Error crítico en el pipeline: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 55, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 20:59:41,122 - src.pipelines.products_pipeline - ERROR - Pipeline de productos falló
+Traceback (most recent call last):
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/products_pipeline.py", line 50, in products_pipeline
+    processed_df = pipeline.run()
+                   ^^^^^^^^^^^^^^
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/pipelines/incremental_pipeline.py", line 27, in run
+    self.loader.load(df)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/src/load/postgres_loader.py", line 55, in load
+    execute_values(cur, self.insert_sql, values)
+  File "/home/abel/Desktop/Abel/DATA ENGINEERING PROYECTS/python_etl/etl_project/env/lib/python3.11/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_products_pkey"
+DETAIL:  Key (product_id)=(1) already exists.
+
+2026-03-11 21:03:44,702 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 21:03:44,707 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:03:44,707 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:03:44,715 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 21:03:44,722 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 21:03:44,732 - src.load.postgres_loader - INFO - Inserción completada correctamente
+2026-03-11 21:03:44,743 - src.metadata.metadata_manager - INFO - Checkpoint actualizado para products: 2026-03-11 01:43:54
+2026-03-11 21:03:44,743 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. Checkpoint actualizado a 2026-03-11 01:43:54
+2026-03-11 21:06:45,816 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 21:06:45,820 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:06:45,820 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:06:45,829 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-11 21:06:45,831 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:06:45,832 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:07:26,643 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 21:07:26,648 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:07:26,648 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:07:26,657 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-11 21:07:26,660 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:07:26,660 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:07:55,016 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 21:07:55,020 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:07:55,020 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:07:55,029 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 1900-01-01 00:00:00
+2026-03-11 21:07:55,036 - src.load.postgres_loader - INFO - Insertando 8 registros en dw.dim_products
+2026-03-11 21:07:55,050 - src.load.postgres_loader - INFO - Inserción completada correctamente
+2026-03-11 21:07:55,058 - src.metadata.metadata_manager - INFO - Checkpoint actualizado para products: 2026-03-11 01:43:54
+2026-03-11 21:07:55,058 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. Checkpoint actualizado a 2026-03-11 01:43:54
+2026-03-11 21:08:14,122 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 21:08:14,127 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:08:14,127 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:08:14,136 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-11 21:08:14,140 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:08:14,140 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:09:18,848 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-11 21:09:18,853 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:09:18,853 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-11 21:09:18,861 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-11 21:09:18,863 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-11 21:09:18,864 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
