@@ -421,3 +421,87 @@ DETAIL:  Key (product_id)=(1) already exists.
 2026-03-15 22:29:19,437 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
 2026-03-15 22:29:19,440 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
 2026-03-15 22:29:19,440 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 22:50:08,076 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 22:50:08,076 - src.extract.mysql_extractor - INFO - Extrayendo incremental de customers desde 2026-03-11 01:43:54
+2026-03-15 22:50:08,081 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 22:50:08,081 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 22:54:06,766 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 22:54:06,766 - src.extract.mysql_extractor - INFO - Extrayendo incremental de customers desde 2026-03-11 01:43:54
+2026-03-15 22:54:06,770 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 22:54:06,770 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 22:54:59,992 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 22:54:59,992 - src.extract.mysql_extractor - INFO - Extrayendo incremental de customers desde 2026-03-11 01:43:54
+2026-03-15 22:54:59,996 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 22:54:59,996 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 22:55:07,040 - src.pipelines.stores_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-15 22:55:07,040 - src.extract.mysql_extractor - INFO - Extrayendo incremental de sales desde 2026-03-11 01:43:54
+2026-03-15 22:55:07,050 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 22:55:07,050 - src.pipelines.stores_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 22:55:07,058 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-15 22:55:07,058 - src.extract.mysql_extractor - INFO - Extrayendo incremental de products desde 2026-03-11 01:43:54
+2026-03-15 22:55:07,064 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 22:55:07,064 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 22:55:07,073 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 22:55:07,073 - src.extract.mysql_extractor - INFO - Extrayendo incremental de customers desde 2026-03-11 01:43:54
+2026-03-15 22:55:07,076 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 22:55:07,076 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:05:53,040 - src.pipelines.stores_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-15 23:05:53,040 - src.extract.mysql_extractor - INFO - Extrayendo incremental de sales desde 2026-03-11 01:43:54
+2026-03-15 23:05:53,046 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:05:53,046 - src.pipelines.stores_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:05:53,055 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-15 23:05:53,055 - src.extract.mysql_extractor - INFO - Extrayendo incremental de products desde 2026-03-11 01:43:54
+2026-03-15 23:05:53,058 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:05:53,058 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:05:53,066 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 23:05:53,066 - src.extract.mysql_extractor - INFO - Extrayendo incremental de customers desde 2026-03-11 01:43:54
+2026-03-15 23:05:53,069 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:05:53,069 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:08:12,493 - src.pipelines.stores_pipeline - INFO - Full load para stores
+2026-03-15 23:08:12,493 - src.extract.mysql_extractor - INFO - Extrayendo carga completa (Full Load) de stores
+2026-03-15 23:08:12,509 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:08:12,518 - src.load.postgres_loader - INFO - Carga Full: Limpiando tabla completa dw.dim_stores
+2026-03-15 23:08:12,524 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:08:12,528 - src.load.postgres_loader - INFO - Carga completada correctamente
+2026-03-15 23:08:12,528 - src.pipelines.stores_pipeline - INFO - Pipeline de tiendas ejecutado exitosamente.
+2026-03-15 23:08:12,537 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-15 23:08:12,537 - src.extract.mysql_extractor - INFO - Extrayendo incremental de products desde 2026-03-11 01:43:54
+2026-03-15 23:08:12,540 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:08:12,540 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:08:12,548 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 23:08:12,548 - src.extract.mysql_extractor - INFO - Extrayendo incremental de customers desde 2026-03-11 01:43:54
+2026-03-15 23:08:12,551 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:08:12,551 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:10:26,001 - src.pipelines.stores_pipeline - INFO - Full load para stores
+2026-03-15 23:10:26,001 - src.extract.mysql_extractor - INFO - Extrayendo carga completa (Full Load) de stores
+2026-03-15 23:10:26,009 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:10:26,018 - src.load.postgres_loader - INFO - Carga Full: Limpiando tabla completa dw.dim_stores
+2026-03-15 23:10:26,023 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:10:26,026 - src.load.postgres_loader - INFO - Carga completada correctamente
+2026-03-15 23:10:26,026 - src.pipelines.stores_pipeline - INFO - Pipeline de tiendas ejecutado exitosamente.
+2026-03-15 23:10:31,013 - src.pipelines.stores_pipeline - INFO - Full load para stores
+2026-03-15 23:10:31,013 - src.extract.mysql_extractor - INFO - Extrayendo carga completa (Full Load) de stores
+2026-03-15 23:10:31,022 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:10:31,031 - src.load.postgres_loader - INFO - Carga Full: Limpiando tabla completa dw.dim_stores
+2026-03-15 23:10:31,038 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:10:31,040 - src.load.postgres_loader - INFO - Carga completada correctamente
+2026-03-15 23:10:31,040 - src.pipelines.stores_pipeline - INFO - Pipeline de tiendas ejecutado exitosamente.
+2026-03-15 23:10:47,774 - src.pipelines.sales_pipeline - INFO - Último checkpoint para sales: 2026-03-11 01:43:54
+2026-03-15 23:10:47,774 - src.extract.mysql_extractor - INFO - Extrayendo incremental de sales desde 2026-03-11 01:43:54
+2026-03-15 23:10:47,779 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:10:47,779 - src.pipelines.sales_pipeline - INFO - Pipeline de ventas diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:10:47,787 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
+2026-03-15 23:10:47,787 - src.extract.mysql_extractor - INFO - Extrayendo incremental de products desde 2026-03-11 01:43:54
+2026-03-15 23:10:47,790 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:10:47,790 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:10:47,797 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 23:10:47,798 - src.extract.mysql_extractor - INFO - Extrayendo incremental de customers desde 2026-03-11 01:43:54
+2026-03-15 23:10:47,800 - src.pipelines.base_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 23:10:47,800 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 23:10:47,800 - src.pipelines.stores_pipeline - INFO - Full load para stores
+2026-03-15 23:10:47,800 - src.extract.mysql_extractor - INFO - Extrayendo carga completa (Full Load) de stores
+2026-03-15 23:10:47,805 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:10:47,813 - src.load.postgres_loader - INFO - Carga Full: Limpiando tabla completa dw.dim_stores
+2026-03-15 23:10:47,820 - src.load.postgres_loader - INFO - Insertando 4 registros en dw.dim_stores
+2026-03-15 23:10:47,822 - src.load.postgres_loader - INFO - Carga completada correctamente
+2026-03-15 23:10:47,822 - src.pipelines.stores_pipeline - INFO - Pipeline de tiendas ejecutado exitosamente.

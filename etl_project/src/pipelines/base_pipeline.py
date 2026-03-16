@@ -8,7 +8,7 @@ from src.load.base_loader import BaseLoader
 
 logger = logging.getLogger(__name__)
 
-class IncrementalPipeline:
+class BasePipeline:
     def __init__(self, extractor: BaseExtractor, loader: BaseLoader, transformer: BaseTransformer):
         self.extractor = extractor
         self.loader = loader

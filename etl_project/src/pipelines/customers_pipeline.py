@@ -6,7 +6,7 @@ from src.extract.mysql_extractor import MysqlExtractor
 from src.transform.customers_transformer import CustomersTransformer
 from src.metadata.metadata_manager import MetadataManager
 from src.load.postgres_loader import PostgresLoader
-from src.pipelines.incremental_pipeline import IncrementalPipeline
+from src.pipelines.base_pipeline import BasePipeline
 
 from config.tables import CUSTOMERS_PIPELINE_CONFIG
 
@@ -41,7 +41,7 @@ def run_daily_customers_pipeline():
 
     # Ejecutar pipeline
     try:
-        pipeline = IncrementalPipeline(
+        pipeline = BasePipeline(
             extractor=customers_extractor,
             loader= customers_loader,
             transformer=CustomersTransformer()

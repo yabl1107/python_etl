@@ -6,7 +6,7 @@ from src.extract.mysql_extractor import MysqlExtractor
 from src.transform.ventas_transformer import VentasTransformer
 from src.metadata.metadata_manager import MetadataManager
 from src.load.postgres_loader import PostgresLoader
-from src.pipelines.incremental_pipeline import IncrementalPipeline
+from src.pipelines.base_pipeline import BasePipeline
 
 from config.tables import SALES_PIPELINE_CONFIG
 
@@ -42,7 +42,7 @@ def run_daily_sales_pipeline():
 
     # Ejecutar pipeline
     try:
-        pipeline = IncrementalPipeline(
+        pipeline = BasePipeline(
             extractor=sales_extractor,
             loader= sales_loader,
             transformer=VentasTransformer()

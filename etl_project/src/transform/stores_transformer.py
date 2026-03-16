@@ -1,31 +1,30 @@
-from pytz import timezone
 from datetime import datetime, timezone
-from config.tables import SALES_PIPELINE_CONFIG
-
+import pandas as pd
+from config.tables import STORES_PIPELINE_CONFIG
 from .base_transformer import BaseTransformer
 
-class VentasTransformer(BaseTransformer):
+class StoresTransformer(BaseTransformer):
     def transform(self, df):
         
-        #Validate
         if df.empty:
-            raise ValueError("No hay ventas para procesar")
-        
-        if (df["quantity"] <= 0).any():
-            raise ValueError("Cantidad invalida")
-        
-        mapping = SALES_PIPELINE_CONFIG["column_mapping"]
+            return df
 
-        # Clean
+        df = df.copy()
+
+        # Mapping
+        mapping = STORES_PIPELINE_CONFIG.get("column_mapping", {})
         df = df.rename(columns=mapping)
-        df = df.dropna()
-        df = df.drop_duplicates(subset=["sale_id"])
 
-        #Enrich
+        # Limpieza y normalización
+        df["store_name"] = df["store_name"].str.strip()
+        df["city"] = df["city"].str.strip().str.title()
+        df["region_name"] = df["region_name"].str.strip().str.title()
+
+        # Metadata de carga
         df['inserted_at'] = datetime.now(timezone.utc)
-        df["total_amount"] = df["quantity"] * df["unit_price"]
 
-        # Filtramos y orden de columnas
-        df_to_insert = df[SALES_PIPELINE_CONFIG["target"]["columns"]]
+        # Select
+        target_columns = STORES_PIPELINE_CONFIG["target"]["columns"]
+        df_to_insert = df[target_columns]
 
         return df_to_insert

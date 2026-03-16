@@ -4,7 +4,7 @@ from src.extract.mysql_extractor import MysqlExtractor
 from src.transform.products_transformer import ProductsTransformer
 from src.metadata.metadata_manager import MetadataManager
 from src.load.postgres_loader import PostgresLoader
-from src.pipelines.incremental_pipeline import IncrementalPipeline
+from src.pipelines.base_pipeline import BasePipeline
 
 from config.tables import PRODUCTS_PIPELINE_CONFIG
 
@@ -40,7 +40,7 @@ def products_pipeline():
 
     # Ejecutar pipeline
     try:
-        pipeline = IncrementalPipeline(
+        pipeline = BasePipeline(
             extractor=products_extractor,
             loader= products_loader,
             transformer=ProductsTransformer()
