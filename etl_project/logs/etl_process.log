@@ -413,3 +413,11 @@ DETAIL:  Key (product_id)=(1) already exists.
 2026-03-11 21:09:18,861 - src.pipelines.products_pipeline - INFO - Último checkpoint para products: 2026-03-11 01:43:54
 2026-03-11 21:09:18,863 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
 2026-03-11 21:09:18,864 - src.pipelines.products_pipeline - INFO - Pipeline de productos ejecutado exitosamente. No se encontraron nuevos registros para procesar.
+2026-03-15 22:20:43,505 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 1900-01-01 00:00:00
+2026-03-15 22:20:43,525 - src.load.postgres_loader - INFO - Insertando 6 registros en dw.dim_customers
+2026-03-15 22:20:43,538 - src.load.postgres_loader - INFO - Inserción completada correctamente
+2026-03-15 22:20:43,548 - src.metadata.metadata_manager - INFO - Checkpoint actualizado para customers: 2026-03-11 01:43:54
+2026-03-15 22:20:43,548 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. Checkpoint actualizado a 2026-03-11 01:43:54
+2026-03-15 22:29:19,437 - src.pipelines.customers_pipeline - INFO - Último checkpoint para customers: 2026-03-11 01:43:54
+2026-03-15 22:29:19,440 - src.pipelines.incremental_pipeline - INFO - No se encontraron registros nuevos o modificados.
+2026-03-15 22:29:19,440 - src.pipelines.customers_pipeline - INFO - Pipeline de clientes diarias ejecutado exitosamente. No se encontraron nuevos registros para procesar.
