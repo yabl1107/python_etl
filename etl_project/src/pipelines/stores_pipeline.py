@@ -6,6 +6,7 @@ from src.extract.mysql_extractor import MysqlExtractor
 from src.transform.stores_transformer import StoresTransformer
 from src.load.postgres_loader import PostgresLoader
 from src.pipelines.base_pipeline import BasePipeline
+from src.extraction_strategies import FullLoadStrategy
 
 from config.tables import STORES_PIPELINE_CONFIG
 
@@ -15,14 +16,14 @@ logger = logging.getLogger(__name__)
 def stores_pipeline():
 
     table_name = STORES_PIPELINE_CONFIG["source"]["table"]
-    incremental_col = STORES_PIPELINE_CONFIG["source"]["incremental_col"]
 
     # Instaciar dependencias
     logger.info(f"Full load para {table_name}")
 
     sales_extractor = MysqlExtractor(
         schema_name= STORES_PIPELINE_CONFIG["source"]["schema"],
-        table_name= table_name
+        table_name= table_name,
+        strategy=FullLoadStrategy()
     )
 
     sales_loader = PostgresLoader(

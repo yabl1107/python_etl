@@ -4,9 +4,10 @@ import logging
 
 from src.extract.mysql_extractor import MysqlExtractor
 from src.transform.ventas_transformer import VentasTransformer
-from src.metadata.metadata_manager import MetadataManager
+from src.metadata_manager import MetadataManager
 from src.load.postgres_loader import PostgresLoader
 from src.pipelines.base_pipeline import BasePipeline
+from src.extraction_strategies import IncrementalStrategy
 
 from config.tables import SALES_PIPELINE_CONFIG
 
@@ -29,8 +30,7 @@ def run_daily_sales_pipeline():
     sales_extractor = MysqlExtractor(
         schema_name= SALES_PIPELINE_CONFIG["source"]["schema"],
         table_name= table_name,
-        incremental_column= incremental_col,
-        latest_checkpoint= latest_checkpoint
+        strategy=IncrementalStrategy(incremental_column=incremental_col, checkpoint=latest_checkpoint)
     )
 
     sales_loader = PostgresLoader(

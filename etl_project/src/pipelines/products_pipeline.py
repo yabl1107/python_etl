@@ -2,9 +2,10 @@ import logging
 
 from src.extract.mysql_extractor import MysqlExtractor
 from src.transform.products_transformer import ProductsTransformer
-from src.metadata.metadata_manager import MetadataManager
+from src.metadata_manager import MetadataManager
 from src.load.postgres_loader import PostgresLoader
 from src.pipelines.base_pipeline import BasePipeline
+from src.extraction_strategies import IncrementalStrategy
 
 from config.tables import PRODUCTS_PIPELINE_CONFIG
 
@@ -21,14 +22,14 @@ def products_pipeline():
     metadata_mgr = MetadataManager(schema="etl_metadata", table="etl_control")
 
     latest_checkpoint = metadata_mgr.get_last_checkpoint(table_name)
-
     logger.info(f"Último checkpoint para {table_name}: {latest_checkpoint}")
+    
+    strategy = IncrementalStrategy(incremental_column=incremental_col, checkpoint=latest_checkpoint)
 
     products_extractor = MysqlExtractor(
         schema_name= PRODUCTS_PIPELINE_CONFIG["source"]["schema"],
         table_name= table_name,
-        incremental_column= incremental_col,
-        latest_checkpoint= latest_checkpoint
+        strategy=strategy
     )
 
     products_loader = PostgresLoader(

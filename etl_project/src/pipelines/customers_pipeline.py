@@ -4,7 +4,8 @@ import logging
 
 from src.extract.mysql_extractor import MysqlExtractor
 from src.transform.customers_transformer import CustomersTransformer
-from src.metadata.metadata_manager import MetadataManager
+from src.metadata_manager import MetadataManager
+from src.extraction_strategies import IncrementalStrategy
 from src.load.postgres_loader import PostgresLoader
 from src.pipelines.base_pipeline import BasePipeline
 
@@ -22,16 +23,17 @@ def run_daily_customers_pipeline():
     metadata_mgr = MetadataManager(schema="etl_metadata", table="etl_control")
 
     latest_checkpoint = metadata_mgr.get_last_checkpoint(table_name)
-
     logger.info(f"Último checkpoint para {table_name}: {latest_checkpoint}")
+
+    strategy = IncrementalStrategy(incremental_column=incremental_col, checkpoint=latest_checkpoint)
 
     customers_extractor = MysqlExtractor(
         schema_name= CUSTOMERS_PIPELINE_CONFIG["source"]["schema"],
         table_name= table_name,
-        incremental_column= incremental_col,
-        latest_checkpoint= latest_checkpoint
+        strategy=strategy
     )
 
+    # Loader recibe incremental_col para eliminar data con fecha dentro del rango de fechas a cargar, esto es necesario para evitar duplicados en caso de que el proceso falle después de cargar data pero antes de actualizar el checkpoint
     customers_loader = PostgresLoader(
         table_name= CUSTOMERS_PIPELINE_CONFIG["target"]["table"],
         columns=CUSTOMERS_PIPELINE_CONFIG["target"]["columns"],
