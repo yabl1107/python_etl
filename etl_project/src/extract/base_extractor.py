@@ -2,6 +2,6 @@ from abc import ABC, abstractmethod
 
 class BaseExtractor(ABC):
     @abstractmethod
-    def extract(self, checkpoint=None):
+    def extract(self):
         """Debe devolver un dataframe."""
         pass
