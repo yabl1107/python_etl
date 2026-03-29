@@ -24,7 +24,7 @@ def products_pipeline():
     latest_checkpoint = metadata_mgr.get_last_checkpoint(table_name)
     logger.info(f"Último checkpoint para {table_name}: {latest_checkpoint}")
     
-    strategy = IncrementalStrategy(incremental_column=incremental_col, checkpoint=latest_checkpoint)
+    strategy = IncrementalStrategy(column=incremental_col, checkpoint=latest_checkpoint)
 
     products_extractor = MysqlExtractor(
         schema_name= PRODUCTS_PIPELINE_CONFIG["source"]["schema"],

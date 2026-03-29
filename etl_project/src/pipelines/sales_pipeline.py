@@ -30,7 +30,7 @@ def run_daily_sales_pipeline():
     sales_extractor = MysqlExtractor(
         schema_name= SALES_PIPELINE_CONFIG["source"]["schema"],
         table_name= table_name,
-        strategy=IncrementalStrategy(incremental_column=incremental_col, checkpoint=latest_checkpoint)
+        strategy=IncrementalStrategy(column=incremental_col, checkpoint=latest_checkpoint)
     )
 
     sales_loader = PostgresLoader(
