@@ -25,12 +25,13 @@ PYTHON_ETL/
 │   ├── src/                  
 │   │   ├── extract/          # Extracción de datos
 │   │   ├── load/             # Carga de datos al destino
-│   │   ├── metadata/         # Gestión de checkpoints y estados del ETL
 │   │   ├── pipelines/        # Orquestación de flujos
 │   │   ├── transform/        # Limpieza y transformación
-│   │   └── utils/            # Conectores de DB y helpers
+│   │   ├── utils/            # Conectores de DB y helpers
+│   │   ├── metadata_manager  # Gestión de checkpoints
+│   │   └── extraction_strategies # Uso de Protocols
 │   └── tests/                # Pruebas unitarias
-├── sql-scripts/              # Scripts SQL para inicialización de Docker
+├── sql-scripts/              # Scripts para crear tablas src y target en bd con docker
 ├── docker-compose.yml        # Infraestructura de bases de datos (MySQL/Postgres)
 ├── requirements.txt          
 └── README.md                 
