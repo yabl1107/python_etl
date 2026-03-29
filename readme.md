@@ -1,6 +1,6 @@
 # 🐍 Python ETL
 
-Pipeline ETL batch desarrollado en **Python puro**, con una estructura clara por capas (**Extract, Transform, Load**), diseñado para ser mantenible, testeable y fácil de extender.
+Pipeline ETL batch desarrollado en **Python**, con estructura por capas (**Extract, Transform, Load**), diseñado para ser mantenible, testeable y fácil de extender.
 
 El proyecto incluye:
 - Infraestructura local db con **Docker Compose**
